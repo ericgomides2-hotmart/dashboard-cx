@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard CX — Sustain & Trust</title>
+<title>Dashboard de Gestão de Sustain/FS</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
@@ -13,8 +13,8 @@
     --border: #e8eaf0;
     --text: #2d3142;
     --muted: #8b90a0;
-    --accent: #6366f1;
-    --accent-light: #eef2ff;
+    --accent: #F04E23;
+    --accent-light: #fef0ec;
     --green: #10b981;
     --green-light: #ecfdf5;
     --yellow: #f59e0b;
@@ -55,7 +55,7 @@
     border: none; border-radius: 8px; font-size: .9rem; font-weight: 600;
     cursor: pointer; margin-top: .5rem; transition: background .2s;
   }
-  .login-box button:hover { background: #4f46e5; }
+  .login-box button:hover { background: #d4421d; }
   .login-error { color: var(--red); font-size: .8rem; margin-top: .5rem; display: none; }
   .google-btn-wrapper { display: flex; justify-content: center; margin-top: .5rem; }
   .user-avatar { width: 28px; height: 28px; border-radius: 50%; margin-right: .5rem; vertical-align: middle; }
@@ -81,7 +81,7 @@
     border-radius: 6px; font-size: .75rem; cursor: pointer; color: #fff; font-weight: 600;
     transition: all .2s;
   }
-  .btn-refresh:hover { background: #4f46e5; }
+  .btn-refresh:hover { background: #d4421d; }
   .btn-refresh:disabled { opacity: .5; cursor: not-allowed; }
   .btn-refresh .spinner { display: none; }
   .btn-refresh.loading .spinner { display: inline; }
@@ -217,7 +217,7 @@
 <!-- LOGIN OVERLAY -->
 <div id="login-overlay">
   <div class="login-box">
-    <h2>📊 Dashboard CX</h2>
+    <h2>📊 Dashboard de Gestão de Sustain/FS</h2>
     <p>Acesso restrito a colaboradores Hotmart.<br>Faça login com sua conta Google @hotmart.com</p>
     <div class="google-btn-wrapper">
       <div id="g_id_onload"
@@ -241,7 +241,7 @@
 <!-- HEADER -->
 <div class="header" id="app" style="display:none;">
   <div class="header-left">
-    <h1>📊 Dashboard CX — Sustain & Trust</h1>
+    <h1>📊 Dashboard de Gestão de Sustain/FS</h1>
     <span class="subtitle" id="header-date">Dados atualizados em D-1</span>
   </div>
   <div class="header-right">
@@ -804,7 +804,7 @@ function getTimeBuckets() {
   }
 }
 
-const CHART_COLORS = ['#6366f1','#10b981','#f59e0b','#ef4444','#3b82f6','#f97316','#8b5cf6',
+const CHART_COLORS = ['#F04E23','#10b981','#f59e0b','#ef4444','#3b82f6','#f97316','#8b5cf6',
   '#ec4899','#14b8a6','#84cc16','#06b6d4','#e11d48','#a855f7','#22d3ee','#fb923c',
   '#4ade80','#f472b6','#818cf8','#fbbf24','#34d399'];
 
@@ -817,8 +817,8 @@ function renderVolumeChart() {
       datasets: [{
         label: 'Tickets criados',
         data: buckets.map(b => b.tickets.length),
-        backgroundColor: 'rgba(99,102,241,.6)',
-        borderColor: '#6366f1',
+        backgroundColor: 'rgba(240,78,35,.55)',
+        borderColor: '#F04E23',
         borderWidth: 1, borderRadius: 4
       }]
     },
@@ -1046,7 +1046,7 @@ function renderTransbordoTable() {
       <td>${sq}</td>
       <td>${s.count}</td>
       <td>${Math.round(s.count / total * 100)}%</td>
-      <td>${topProd ? topProd[0] + ' (' + topProd[1] + ')' : '—'}</td>
+      <td>${topProd ? topProd[0] + ' (' + topProd[1] + ')' : ''}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -1063,7 +1063,7 @@ function renderSegChart() {
     else segCounts['N/A']++;
   });
   const labels = ['8D', '7D', '6D', '< 6D', 'N/A'];
-  const segColors = { '8D': '#6366f1', '7D': '#3b82f6', '6D': '#f59e0b', '< 6D': '#ef4444', 'N/A': '#d1d5db' };
+  const segColors = { '8D': '#F04E23', '7D': '#3b82f6', '6D': '#f59e0b', '< 6D': '#ef4444', 'N/A': '#d1d5db' };
 
   charts.seg = new Chart(document.getElementById('chart-seg'), {
     type: 'doughnut',
@@ -1087,7 +1087,7 @@ function renderSegChart() {
 function renderSegTimeChart() {
   const buckets = getTimeBuckets();
   const segs = ['8D', '7D', '6D', '< 6D'];
-  const segColors = { '8D': '#6366f1', '7D': '#3b82f6', '6D': '#f59e0b', '< 6D': '#ef4444' };
+  const segColors = { '8D': '#F04E23', '7D': '#3b82f6', '6D': '#f59e0b', '< 6D': '#ef4444' };
   const datasets = segs.map(s => ({
     label: s,
     data: buckets.map(b => b.tickets.filter(t => (t.segmentacao || '') === s).length),
